@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.todolistcompose.common.snackbar.SnackbarManager
+import com.example.todolistcompose.screens.splash.SplashScreen
 import com.example.todolistcompose.ui.theme.TodoListComposeTheme
 import kotlinx.coroutines.CoroutineScope
 
@@ -74,7 +75,9 @@ fun resources(): Resources {
 @ExperimentalMaterialApi
 fun NavGraphBuilder.makeItSoGraph(appState: TodoListAppState) {
     composable(SPLASH_SCREEN) {
-
+        SplashScreen(openAndPopUp = { route, popUp ->
+            appState.navigateAndPopUp(route, popUp)
+        })
     }
 
     composable(SETTINGS_SCREEN) {
