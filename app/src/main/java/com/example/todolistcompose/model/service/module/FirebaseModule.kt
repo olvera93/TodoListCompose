@@ -33,3 +33,4 @@ object FirebaseModule {
 
   @Provides fun firestore(): FirebaseFirestore = Firebase.firestore
 }
+
