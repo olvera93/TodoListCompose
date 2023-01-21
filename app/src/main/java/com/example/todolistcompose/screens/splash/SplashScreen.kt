@@ -29,7 +29,6 @@ fun SplashScreen(
     modifier: Modifier = Modifier,
     viewModel: SplashViewModel = hiltViewModel()
 ) {
-    
     Column(
         modifier =
         modifier
@@ -40,12 +39,13 @@ fun SplashScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        
         if (viewModel.showError.value) {
-            Text(text = stringResource(id = AppText.generic_error))
+            Text(text = stringResource(AppText.generic_error))
 
-            BasicButton(text = AppText.try_again, modifier = Modifier.basicButton()) {
-                viewModel.onAppStart(openAndPopUp)
+            BasicButton(AppText.try_again, Modifier.basicButton()) {
+                viewModel.onAppStart(
+                    openAndPopUp
+                )
             }
         } else {
             CircularProgressIndicator(color = MaterialTheme.colors.onBackground)
@@ -56,5 +56,4 @@ fun SplashScreen(
         delay(SPLASH_TIMEOUT)
         viewModel.onAppStart(openAndPopUp)
     }
-    
 }

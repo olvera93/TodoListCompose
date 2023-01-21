@@ -26,13 +26,13 @@ import com.example.todolistcompose.R.drawable as AppIcon
 @ExperimentalMaterialApi
 @Composable
 fun SettingsScreen(
-    restarApp: (String) -> Unit,
+    restartApp: (String) -> Unit,
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
 
-    val uiState = viewModel.uiState
+    val uiState by viewModel.uiState.collectAsState(initial = SettingsUiState(false))
 
     Column(
         modifier = modifier
@@ -66,11 +66,11 @@ fun SettingsScreen(
             }
         } else {
             SignOutCard {
-                viewModel.onSignUpClick(restarApp)
+                viewModel.onSignUpClick(restartApp)
 
             }
             DeleteMyAccountCard {
-                viewModel.onDeleteMyAccountClick(restarApp)
+                viewModel.onDeleteMyAccountClick(restartApp)
             }
         }
     }

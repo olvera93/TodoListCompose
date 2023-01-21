@@ -16,8 +16,7 @@ class SplashViewModel @Inject constructor(
     configurationService: ConfigurationService,
     private val accountService: AccountService,
     logService: LogService
-): TodoListViewModel(logService) {
-
+) : TodoListViewModel(logService) {
     val showError = mutableStateOf(false)
 
     init {
@@ -25,13 +24,13 @@ class SplashViewModel @Inject constructor(
     }
 
     fun onAppStart(openAndPopUp: (String, String) -> Unit) {
+
         showError.value = false
         if (accountService.hasUser) openAndPopUp(TASKS_SCREEN, SPLASH_SCREEN)
         else createAnonymousAccount(openAndPopUp)
     }
 
     private fun createAnonymousAccount(openAndPopUp: (String, String) -> Unit) {
-
         launchCatching(snackbar = false) {
             try {
                 accountService.createAnonymousAccount()
@@ -42,5 +41,4 @@ class SplashViewModel @Inject constructor(
             openAndPopUp(TASKS_SCREEN, SPLASH_SCREEN)
         }
     }
-
 }

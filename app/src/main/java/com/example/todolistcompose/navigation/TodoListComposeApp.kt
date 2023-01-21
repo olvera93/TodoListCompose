@@ -22,6 +22,7 @@ import com.example.todolistcompose.screens.login.LoginScreen
 import com.example.todolistcompose.screens.settings.SettingsScreen
 import com.example.todolistcompose.screens.sign_up.SignUpScreen
 import com.example.todolistcompose.screens.splash.SplashScreen
+import com.example.todolistcompose.screens.tasks.TasksScreen
 import com.example.todolistcompose.ui.theme.TodoListComposeTheme
 import kotlinx.coroutines.CoroutineScope
 
@@ -46,7 +47,7 @@ fun TodoListComposeApp() {
             ) { innerPaddingModifier ->
                 NavHost(
                     navController = appState.navController,
-                    startDestination = SPLASH_SCREEN,
+                    startDestination = SETTINGS_SCREEN,
                     modifier = Modifier.padding(innerPaddingModifier)
                 ) {
                     makeItSoGraph(appState)
@@ -78,15 +79,14 @@ fun resources(): Resources {
 @ExperimentalMaterialApi
 fun NavGraphBuilder.makeItSoGraph(appState: TodoListAppState) {
     composable(SPLASH_SCREEN) {
-        SplashScreen(openAndPopUp = { route, popUp ->
-            appState.navigateAndPopUp(route, popUp)
-        })
+        SplashScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
     }
 
     composable(SETTINGS_SCREEN) {
         SettingsScreen(
-            restarApp = { route -> appState.clearAndNavigate(route) },
-            openScreen = { route -> appState.navigate(route) })
+            restartApp = { route -> appState.clearAndNavigate(route) },
+            openScreen = { route -> appState.navigate(route) }
+        )
     }
 
     composable(LOGIN_SCREEN) {
@@ -97,9 +97,7 @@ fun NavGraphBuilder.makeItSoGraph(appState: TodoListAppState) {
         SignUpScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
     }
 
-    composable(TASKS_SCREEN) {
-
-    }
+    composable(TASKS_SCREEN) { TasksScreen(openScreen = { route -> appState.navigate(route) }) }
 
     composable(
         route = "$EDIT_TASK_SCREEN$TASK_ID_ARG",
