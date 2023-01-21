@@ -8,6 +8,7 @@ import com.example.todolistcompose.navigation.SIGN_UP_SCREEN
 import com.example.todolistcompose.navigation.SPLASH_SCREEN
 import com.example.todolistcompose.screens.TodoListViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +18,9 @@ class SettingsViewModel @Inject constructor(
     private val storageService: StorageService
 ) : TodoListViewModel(logService) {
 
-    val uiState = SettingsUiState(isAnonymousAccount = true)
+    val uiState = accountService.currentUser.map {
+        SettingsUiState(it.isAnonymous)
+    }
 
     fun onLoginClick(openScreen: (String) -> Unit) = openScreen(LOGIN_SCREEN)
 

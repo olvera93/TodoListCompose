@@ -32,6 +32,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "environment"
+    productFlavors {
+        dev
+        staging
+        prod
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -52,6 +58,10 @@ android {
     }
 }
 
+ktfmt {
+    googleStyle()
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -63,6 +73,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation "com.google.android.material:material:1.7.0"
     implementation "androidx.navigation:navigation-compose:2.5.3"
+    implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation "androidx.compose.material:material-icons-extended:1.3.1"
+    implementation 'androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha04'
 
 
     // BoM for the Firebase platform
@@ -87,4 +100,8 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+}
+
+kapt {
+    correctErrorTypes = true
 }

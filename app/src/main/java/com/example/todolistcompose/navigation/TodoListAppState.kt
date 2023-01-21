@@ -19,7 +19,6 @@ class TodoListAppState(
     private val resources: Resources,
     coroutineScope: CoroutineScope
 ) {
-
     init {
         coroutineScope.launch {
             snackbarManager.snackbarMessages.filterNotNull().collect { snackbarMessage ->
@@ -50,5 +49,4 @@ class TodoListAppState(
             popUpTo(0) { inclusive = true }
         }
     }
-
 }
