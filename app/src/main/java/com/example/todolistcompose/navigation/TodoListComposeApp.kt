@@ -20,6 +20,7 @@ import androidx.navigation.navArgument
 import com.example.todolistcompose.common.snackbar.SnackbarManager
 import com.example.todolistcompose.screens.login.LoginScreen
 import com.example.todolistcompose.screens.settings.SettingsScreen
+import com.example.todolistcompose.screens.sign_up.SignUpScreen
 import com.example.todolistcompose.screens.splash.SplashScreen
 import com.example.todolistcompose.ui.theme.TodoListComposeTheme
 import kotlinx.coroutines.CoroutineScope
@@ -93,7 +94,7 @@ fun NavGraphBuilder.makeItSoGraph(appState: TodoListAppState) {
     }
 
     composable(SIGN_UP_SCREEN) {
-
+        SignUpScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
     }
 
     composable(TASKS_SCREEN) {
