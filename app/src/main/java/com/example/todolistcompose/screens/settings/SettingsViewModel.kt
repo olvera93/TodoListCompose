@@ -26,6 +26,13 @@ class SettingsViewModel @Inject constructor(
 
     fun onSignUpClick(openScreen: (String) -> Unit) = openScreen(SIGN_UP_SCREEN)
 
+    fun onSignOutClick(restartApp: (String) -> Unit) {
+        launchCatching {
+            accountService.signOut()
+            restartApp(SPLASH_SCREEN)
+        }
+    }
+
     fun onDeleteMyAccountClick(restartApp: (String) -> Unit) {
         launchCatching {
             storageService.deleteAllForUser(accountService.currentUserId)
@@ -33,6 +40,4 @@ class SettingsViewModel @Inject constructor(
             restartApp(SPLASH_SCREEN)
         }
     }
-
-
 }

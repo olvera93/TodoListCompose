@@ -5,6 +5,7 @@ import com.example.todolistcompose.model.User
 import com.example.todolistcompose.model.service.AccountService
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.perf.ktx.trace
 import javax.inject.Inject
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -41,10 +42,11 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
     auth.signInAnonymously().await()
   }
 
-  override suspend fun linkAccount(email: String, password: String) {
-    val credential = EmailAuthProvider.getCredential(email, password)
-    auth.currentUser!!.linkWithCredential(credential).await()
-  }
+  override suspend fun linkAccount(email: String, password: String): Unit =
+    trace(LINK_ACCOUNT_TRACE) {
+      val credential = EmailAuthProvider.getCredential(email, password)
+      auth.currentUser!!.linkWithCredential(credential).await()
+    }
 
   override suspend fun deleteAccount() {
     auth.currentUser!!.delete().await()

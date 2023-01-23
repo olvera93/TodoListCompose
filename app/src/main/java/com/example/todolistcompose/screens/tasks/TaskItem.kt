@@ -17,7 +17,7 @@ import com.example.todolistcompose.common.ext.contextMenu
 import com.example.todolistcompose.common.ext.hasDueDate
 import com.example.todolistcompose.common.ext.hasDueTime
 import com.example.todolistcompose.model.Task
-//import com.example.todolistcompose.theme.DarkOrange
+import com.example.todolistcompose.ui.theme.DarkOrange
 import java.lang.StringBuilder
 
 @Composable
@@ -49,13 +49,13 @@ fun TaskItem(
         }
       }
 
-      /*if (task.flag) {
+      if (task.flag) {
         Icon(
           painter = painterResource(AppIcon.ic_flag),
           tint = DarkOrange,
           contentDescription = "Flag"
         )
-      }*/
+      }
 
       DropdownContextMenu(options, Modifier.contextMenu(), onActionClick)
     }
