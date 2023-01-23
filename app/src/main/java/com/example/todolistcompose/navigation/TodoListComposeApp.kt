@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.todolistcompose.common.snackbar.SnackbarManager
+import com.example.todolistcompose.screens.edit_task.EditTaskScreen
 import com.example.todolistcompose.screens.login.LoginScreen
 import com.example.todolistcompose.screens.settings.SettingsScreen
 import com.example.todolistcompose.screens.sign_up.SignUpScreen
@@ -47,7 +48,7 @@ fun TodoListComposeApp() {
             ) { innerPaddingModifier ->
                 NavHost(
                     navController = appState.navController,
-                    startDestination = SETTINGS_SCREEN,
+                    startDestination = SPLASH_SCREEN,
                     modifier = Modifier.padding(innerPaddingModifier)
                 ) {
                     makeItSoGraph(appState)
@@ -103,6 +104,9 @@ fun NavGraphBuilder.makeItSoGraph(appState: TodoListAppState) {
         route = "$EDIT_TASK_SCREEN$TASK_ID_ARG",
         arguments = listOf(navArgument(TASK_ID) { defaultValue = TASK_DEFAULT_ID })
     ) {
-
+        EditTaskScreen(
+            popUpScreen = { appState.popUp() },
+            taskId = it.arguments?.getString(TASK_ID) ?: TASK_DEFAULT_ID
+        )
     }
 }

@@ -23,34 +23,22 @@ fun SignUpScreen(
     modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
-
     val uiState by viewModel.uiState
     val fieldModifier = Modifier.fieldModifier()
 
-    BasicToolbar(title = AppText.create_account)
+    BasicToolbar(AppText.create_account)
 
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .verticalScroll(rememberScrollState()),
+        modifier = modifier.fillMaxWidth().fillMaxHeight().verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         EmailField(uiState.email, viewModel::onEmailChange, fieldModifier)
         PasswordField(uiState.password, viewModel::onPasswordChange, fieldModifier)
-        RepeatPasswordField(
-            uiState.repeatPassword,
-            viewModel::onRepeatPasswordChange,
-            fieldModifier
-        )
+        RepeatPasswordField(uiState.repeatPassword, viewModel::onRepeatPasswordChange, fieldModifier)
 
-        BasicButton(text = AppText.create_account, modifier = Modifier.basicButton()) {
+        BasicButton(AppText.create_account, Modifier.basicButton()) {
             viewModel.onSignUpClick(openAndPopUp)
-
         }
-
     }
-
 }

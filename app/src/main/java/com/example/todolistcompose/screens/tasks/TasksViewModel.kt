@@ -10,9 +10,7 @@ import com.example.todolistcompose.navigation.EDIT_TASK_SCREEN
 import com.example.todolistcompose.navigation.SETTINGS_SCREEN
 import com.example.todolistcompose.navigation.TASK_ID
 import com.example.todolistcompose.screens.TodoListViewModel
-import com.example.todolistcompose.screens.tasks.TaskActionOption
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.emptyFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,10 +21,11 @@ class TasksViewModel @Inject constructor(
 ) : TodoListViewModel(logService) {
   val options = mutableStateOf<List<String>>(listOf())
 
-  val tasks = emptyFlow<List<Task>>()
+  val tasks = storageService.tasks
 
   fun loadTaskOptions() {
-
+    val hasEditOption = configurationService.isShowTaskEditButtonConfig
+    options.value = TaskActionOption.getOptions(hasEditOption)
   }
 
   fun onTaskCheckChange(task: Task) {
